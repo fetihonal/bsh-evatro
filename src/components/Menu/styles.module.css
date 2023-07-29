@@ -1,0 +1,12 @@
+.item {
+    @apply
+    h-10 w-10 bg-white opacity-75  rounded-lg flex justify-center items-center mx-auto 
+}
+.active{
+    @apply
+    opacity-100
+}
+.title{
+    @apply
+    w-full text-center block text-white text-sm mt-5
+}
