@@ -5,7 +5,15 @@ import { Layout, Menu, Button, theme } from 'antd'
 const { Header, Sider, Content } = Layout
 
 import MenuItem from '../components/Menu/MenuItem'
-import { Home, Trade } from 'iconsax-react'
+import {
+  Home,
+  Box1,
+  TicketDiscount,
+  Shop,
+  DocumentCopy,
+  CalendarEdit,
+  UserTick,
+} from 'iconsax-react'
 
 const HomePage = ({ children }) => {
   const [collapsed, setCollapsed] = useState(true)
@@ -32,6 +40,7 @@ const HomePage = ({ children }) => {
           top: 0,
           bottom: 0,
           background: colorPrimary,
+          paddingTop: '60px',
         }}
       >
         <div className='demo-logo-vertical' />
@@ -43,45 +52,39 @@ const HomePage = ({ children }) => {
         />
         <MenuItem
           to='/test'
-          icon={<Trade />}
-          title='Trade'
+          icon={<Box1 />}
+          title='Ürünler'
           active={isLinkActive('/test')}
         />
         <MenuItem
           to='/'
-          icon={<Home />}
-          title='Ana Sayfa'
+          icon={<TicketDiscount />}
+          title='Kuponlar'
           active={isLinkActive('/a')}
         />
         <MenuItem
           to='/test'
-          icon={<Trade />}
-          title='Trade'
+          icon={<Shop />}
+          title='Pazar Yönetimi'
           active={isLinkActive('/tesst')}
         />
         <MenuItem
           to='/'
-          icon={<Home />}
-          title='Ana Sayfa'
+          icon={<DocumentCopy />}
+          title='Dökümanlar'
           active={isLinkActive('/we')}
         />
         <MenuItem
           to='/test'
-          icon={<Trade />}
-          title='Trade'
+          icon={<CalendarEdit />}
+          title='Hatırlatmalar'
           active={isLinkActive('/qwe')}
         />
         <MenuItem
           to='/'
-          icon={<Home />}
-          title='Ana Sayfa'
+          icon={<UserTick />}
+          title='Müşteri'
           active={isLinkActive('/qwe')}
-        />
-        <MenuItem
-          to='/test'
-          icon={<Trade />}
-          title='Trade'
-          active={isLinkActive('/rrr')}
         />
       </Sider>
       <Layout className='site-layout' style={{ marginLeft: 115 }}>
