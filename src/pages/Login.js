@@ -28,7 +28,6 @@ const LoginPage = () => {
         const jwToken = res.data.jwToken
         setAuthorizationToken(jwToken)
         handleOnClick()
-        console.log('asd', res.data)
         localStorage.setItem('theme', res.data.companyPartnerId)
       })
       .catch((error) => {

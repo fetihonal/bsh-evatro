@@ -7,7 +7,6 @@ import {
   Navigate,
 } from 'react-router-dom'
 import { setAuthorizationToken } from './helpers/setAuthorizationToken'
-import jwtDecode from 'jwt-decode'
 import Theme from './layout/ThemeProvider'
 import './app.styles.scss'
 

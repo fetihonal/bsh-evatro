@@ -1,11 +1,5 @@
 import React, { Children, useContext, useState } from 'react'
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Layout, Menu, Button, theme } from 'antd'
 
 const { Header, Sider, Content } = Layout
@@ -16,9 +10,8 @@ import { Home, Trade } from 'iconsax-react'
 const HomePage = ({ children }) => {
   const [collapsed, setCollapsed] = useState(true)
   const {
-    token: { colorBgContainer },
+    token: { colorPrimary },
   } = theme.useToken()
-
   const isLinkActive = (path) => {
     return location.pathname === path ? 'active' : ''
   }
@@ -38,6 +31,7 @@ const HomePage = ({ children }) => {
           left: 0,
           top: 0,
           bottom: 0,
+          background: colorPrimary,
         }}
       >
         <div className='demo-logo-vertical' />
@@ -91,7 +85,7 @@ const HomePage = ({ children }) => {
         />
       </Sider>
       <Layout className='site-layout' style={{ marginLeft: 115 }}>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header style={{ padding: 0, background: 'white' }}>
           <Button
             type='text'
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

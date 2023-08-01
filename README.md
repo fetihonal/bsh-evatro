@@ -2,7 +2,7 @@
 
 ```
 git clone
-cd react-webpack-5-tailwind-2
+cd
 yarn / npm i
 ```
 

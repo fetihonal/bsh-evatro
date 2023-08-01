@@ -1,22 +1,9 @@
 // HomePage.js
 
 import React, { useState, useEffect } from 'react'
-import { ConfigProvider, Input } from 'antd'
-import trTR from 'antd/lib/locale/tr_TR'
+import { ConfigProvider } from 'antd'
 import styled, { ThemeProvider } from 'styled-components'
-
 import { bosh, profilo } from './tailwindTheme'
-
-import classNames from 'classnames'
-
-const Container = styled.div`
-  background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.text};
-`
-
-const ButtonContainer = styled.div`
-  ${`mt-4`}
-`
 
 const Theme = (props) => {
   const { children } = props
@@ -25,7 +12,7 @@ const Theme = (props) => {
   useEffect(() => {
     // localStorage'den "theme" değerini al
     const storedTheme = localStorage.getItem('theme')
-
+    console.log('storedTheme', storedTheme)
     // Eğer "theme" değeri 1, 2 veya 3 ise, "theme" değerini güncelle
     if (storedTheme === '1' || storedTheme === '2' || storedTheme === '3') {
       const theme =
@@ -36,6 +23,7 @@ const Theme = (props) => {
   const customTheme = {
     token: theme,
   }
+
   return (
     <ThemeProvider theme={theme}>
       <ConfigProvider theme={customTheme}>{children}</ConfigProvider>
