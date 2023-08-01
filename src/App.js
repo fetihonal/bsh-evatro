@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom'
 import { setAuthorizationToken } from './helpers/setAuthorizationToken'
 import Theme from './layout/ThemeProvider'
-import './app.styles.scss'
 
 import Layout from './layout'
 import LoginPage from './pages/Login'
