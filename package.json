@@ -12,7 +12,7 @@
   ],
   "license": "MIT",
   "name": "bsh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BSH",
   "dependencies": {
     "antd": "^5.7.3",
