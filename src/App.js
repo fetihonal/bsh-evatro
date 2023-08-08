@@ -28,6 +28,7 @@ const App = () => {
   const [jwtToken] = useState(localStorage.getItem('jwtToken'))
 
   useEffect(() => {
+    
     if (jwtToken) {
       setAuthorizationToken(jwtToken)
     }

@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Input, Button } from 'antd'
+import { Input, Button, notification } from 'antd'
 import { setAuthorizationToken } from '../helpers/setAuthorizationToken'
 import instance from '../utils/axios'
-
-import { Sms, Lock } from 'iconsax-react'
+import Logo from '../assets/logo.png'
+import { Sms, Lock,InfoCircle,Key } from 'iconsax-react'
+import NewPasswordPopup from '../components/Login/NewPasswordPopup'
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,11 @@ const LoginPage = () => {
     password: '',
     deviceId: '',
   })
+  const [open, setOpen] = useState(false);
+  const [api, contextHolder] = notification.useNotification()
+  useEffect(()=> {
+    localStorage.removeItem('theme')
+  },[])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -21,19 +27,40 @@ const LoginPage = () => {
   const handleOnClick = useCallback(() => navigate('/'), [navigate])
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    
     instance
       .post('/login', formData)
       .then((res) => {
         const jwToken = res.data.jwToken
+        localStorage.setItem('theme', res.data.companyPartnerId)
         setAuthorizationToken(jwToken)
         handleOnClick()
-        localStorage.setItem('theme', res.data.companyPartnerId)
+        
       })
       .catch((error) => {
-        console.error('API Error:', error)
+         api.open({
+        message: 'Giriş Bilgi',
+        description: 'Kullanıcı adı veya şifre hatalı.',
+        placement: 'topRight',
+        icon: <InfoCircle style={{ color: '#108ee9' }} />,
+      })
       })
   }
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleOk = () => {
+    
+    setTimeout(() => {
+      
+      setOpen(false);
+    }, 3000);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   return (
     <div className='flex h-screen'>
@@ -45,12 +72,16 @@ const LoginPage = () => {
         {/* Sağ taraftaki login formu */}
         <div className='w-full max-w-md'>
           <form className='login-form' onSubmit={handleSubmit}>
-            <h2 className='text-3xl font-bold mb-6'>Giriş Yap</h2>
+            <img src={Logo} height={68} />
+            <span className='text-md block mt-4 mb-4 text-greyColor'>
+              Bayi İletişim Platromu
+            </span>
+
             <div className='mb-4'>
               <Input
                 size='large'
                 type='text'
-                prefix={<Sms />}
+                prefix={<Sms color='#64748B' className='mr-2' />}
                 placeholder='Kullanıcı Adı'
                 name='email'
                 value={formData.email}
@@ -60,19 +91,40 @@ const LoginPage = () => {
             <div className='mb-4'>
               <Input.Password
                 size='large'
-                prefix={<Lock />}
+                prefix={<Lock color='#64748B' className='mr-2' />}
                 placeholder='Şifre'
                 name='password'
                 value={formData.password}
                 onChange={handleInputChange}
               />
             </div>
-            <Button type='primary' size='large' htmlType='submit' block>
+            <div className='flex items-center justify-start  gap-2 mb-4'>
+              <Key className='text-primary' />
+              <span
+                className='text-primary cursor-pointer'
+                onClick={() => showModal()}
+              >
+                Yeni Parola Talep Et
+              </span>
+            </div>
+            <Button
+              type='primary'
+              size='large'
+              htmlType='submit'
+              className='bg-primary'
+              block
+            >
               Giriş Yap
             </Button>
+            {contextHolder}
           </form>
         </div>
       </div>
+      <NewPasswordPopup
+        open={open}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
     </div>
   )
 }

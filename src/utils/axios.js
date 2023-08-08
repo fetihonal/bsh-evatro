@@ -26,7 +26,7 @@ instance.interceptors.response.use(
     const originalRequest = config
 
     if (status === 401) {
-      alert('401')
+     
     }
 
     return Promise.reject(error)

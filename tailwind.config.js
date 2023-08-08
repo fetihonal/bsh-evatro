@@ -4,9 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
+        primary: '#007BC0',
         secondary: 'var(--color-secondary)',
         loginBg: '#2563EB',
+        greyColor: '#64748B',
       },
     },
   },

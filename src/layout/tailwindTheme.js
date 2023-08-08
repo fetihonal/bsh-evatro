@@ -1,7 +1,7 @@
 // theme.js
 
 export const bosh = {
-  borderRadius: 10,
+  borderRadius: 12,
   colorPrimary: '#005691',
   // colorBgBase: '#005691',
   colors: {
@@ -11,7 +11,7 @@ export const bosh = {
 }
 
 export const profilo = {
-  borderRadius: 10,
+  borderRadius: 12,
   colorPrimary: '#ed4615',
   // colorBgBase: '#ed4615',
   colors: {
