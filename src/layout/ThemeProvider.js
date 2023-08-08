@@ -1,9 +1,10 @@
 // HomePage.js
 
-import React, { useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { ThemeContext } from '../context/themeContext'
 import { ConfigProvider } from 'antd'
 import styled, { ThemeProvider } from 'styled-components'
-import { bosh, profilo } from './tailwindTheme'
+import { bosh, profilo, siemens } from './tailwindTheme'
 
 const Theme = (props) => {
   const { children } = props
@@ -16,18 +17,20 @@ const Theme = (props) => {
     // Eğer "theme" değeri 1, 2 veya 3 ise, "theme" değerini güncelle
     if (storedTheme === '1' || storedTheme === '2' || storedTheme === '3') {
       const theme =
-        storedTheme === '1' ? bosh : storedTheme === '2' ? profilo : {}
+        storedTheme === '1' ? bosh : storedTheme === '2' ? siemens : profilo
       setTheme(theme)
     }
   }, [])
   const customTheme = {
     token: theme,
   }
-
+  console.log(theme)
   return (
-    <ThemeProvider theme={theme}>
-      <ConfigProvider theme={customTheme}>{children}</ConfigProvider>
-    </ThemeProvider>
+    <ThemeContext.Provider value={{setTheme }}>
+      <ThemeProvider theme={theme}>
+        <ConfigProvider theme={customTheme}>{children}</ConfigProvider>
+      </ThemeProvider>
+    </ThemeContext.Provider>
   )
 }
 

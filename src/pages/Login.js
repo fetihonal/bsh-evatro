@@ -1,13 +1,16 @@
-import React, { useState, useCallback,useEffect } from 'react'
+import React, { useState, useCallback,useEffect,useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Input, Button, notification } from 'antd'
+import { ThemeContext } from '../context/themeContext'
 import { setAuthorizationToken } from '../helpers/setAuthorizationToken'
 import instance from '../utils/axios'
 import Logo from '../assets/logo.png'
 import { Sms, Lock,InfoCircle,Key } from 'iconsax-react'
 import NewPasswordPopup from '../components/Login/NewPasswordPopup'
+import { bosh, profilo, siemens } from '../layout/tailwindTheme'
 
 const LoginPage = () => {
+  const {setTheme} = useContext(ThemeContext)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,7 +19,8 @@ const LoginPage = () => {
   const [open, setOpen] = useState(false);
   const [api, contextHolder] = notification.useNotification()
   useEffect(()=> {
-    localStorage.removeItem('theme')
+    localStorage.removeItem('theme');
+     setTheme(bosh)
   },[])
 
   const handleInputChange = (e) => {
@@ -31,7 +35,19 @@ const LoginPage = () => {
     instance
       .post('/login', formData)
       .then((res) => {
-        const jwToken = res.data.jwToken
+        const jwToken = res.data.jwToken;
+         const storedTheme = res.data.companyPartnerId
+         console.log(storedTheme)
+         if (
+           storedTheme === 1 ||
+           storedTheme === 2 ||
+           storedTheme === 3
+         ) {
+           const theme =
+             storedTheme === 1 ? bosh : storedTheme === 2 ? siemens : profilo
+            setTheme(theme)
+         }
+       
         localStorage.setItem('theme', res.data.companyPartnerId)
         setAuthorizationToken(jwToken)
         handleOnClick()
@@ -64,11 +80,11 @@ const LoginPage = () => {
 
   return (
     <div className='flex h-screen'>
-      <div className='flex-1 flex justify-center items-center bg-loginBg text-white'>
+      <div className='flex-1 md:flex sm:flex lg:flex hidden justify-center items-center bg-loginBg text-white '>
         {/* Sol taraftaki resim */}
         BAYİ İLETİŞİM FORMU
       </div>
-      <div className='flex-1 flex justify-center items-center'>
+      <div className='flex-1 flex justify-center items-center p-3'>
         {/* Sağ taraftaki login formu */}
         <div className='w-full max-w-md'>
           <form className='login-form' onSubmit={handleSubmit}>

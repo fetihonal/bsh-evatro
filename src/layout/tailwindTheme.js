@@ -19,3 +19,14 @@ export const profilo = {
     text: '#f00',
   },
 }
+
+export const siemens = {
+  borderRadius: 12,
+  colorPrimary: '#44a9b1',
+  // colorBgBase: '#ed4615',
+  colors: {
+    background: '#000000',
+    text: '#f00',
+  },
+}
+
