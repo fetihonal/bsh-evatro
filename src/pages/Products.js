@@ -163,7 +163,7 @@ const ProductsPage = () => {
           <div className=' bg-white rounded-lg p-8'>
             <h1 className='text-xl  text-gray-500 pb-1 border-b-2 border-primary flex items-center gap-2 mb-5'>
               <Box color='#8E92BC' />
-              Bosch Ev Aletleri
+              Ev Aletleri
             </h1>
             <div>
               {load ? (
