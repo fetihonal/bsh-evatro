@@ -121,7 +121,7 @@ const [form] = Form.useForm()
   return (
     <Modal
       open={open}
-      title='Yeni Parola Talep Et'
+      title='Şifremi Unuttum'
       onOk={handleOk}
       onCancel={handleCancel}
       footer={[]}

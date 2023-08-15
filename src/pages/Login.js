@@ -120,7 +120,7 @@ const LoginPage = () => {
                 className='text-primary cursor-pointer'
                 onClick={() => showModal()}
               >
-                Yeni Parola Talep Et
+               Şifremi Unuttum ?
               </span>
             </div>
             <Button

@@ -26,7 +26,7 @@ instance.interceptors.response.use(
     const originalRequest = config
 
     if (status === 401) {
-     
+      window.location.href = '/login'
     }
 
     return Promise.reject(error)

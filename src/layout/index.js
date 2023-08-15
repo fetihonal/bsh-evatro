@@ -24,7 +24,7 @@ const HomePage = ({ children }) => {
     return location.pathname === path ? 'active' : ''
   }
   return (
-    <Layout style={{ height: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }} hasSider>
       <Sider
         trigger={null}
         collapsible
@@ -51,10 +51,10 @@ const HomePage = ({ children }) => {
           active={isLinkActive('/')}
         />
         <MenuItem
-          to='/test'
+          to='/products'
           icon={<Box1 />}
           title='Ürünler'
-          active={isLinkActive('/test')}
+          active={isLinkActive('/products')}
         />
         <MenuItem
           to='/'
@@ -100,7 +100,10 @@ const HomePage = ({ children }) => {
             }}
           />
         </Header>
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+        <Content
+          style={{ margin: '24px 16px 0', overflow: 'initial' }}
+          className='px-10'
+        >
           {children}
         </Content>
       </Layout>

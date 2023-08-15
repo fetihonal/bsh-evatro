@@ -12,7 +12,7 @@ import Theme from './layout/ThemeProvider'
 import Layout from './layout'
 import LoginPage from './pages/Login'
 import HomePage from './pages/Home'
-import TestPage from './pages/Test'
+import ProductsPage from './pages/Products'
 
 const ProtectedRoute = ({ children }) => {
   const jwtToken = localStorage.getItem('jwtToken')
@@ -48,10 +48,10 @@ const App = () => {
             }
           />
           <Route
-            path='/test'
+            path='/products'
             element={
               <ProtectedRoute>
-                <TestPage />
+                <ProductsPage />
               </ProtectedRoute>
             }
           />
