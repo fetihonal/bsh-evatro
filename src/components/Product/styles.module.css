@@ -1,15 +1,21 @@
 .card{
     display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #FAFAFA;
-        height: 250px;
-        overflow: hidden;
-        @apply
-        p-3 rounded-lg py-10
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+    height: 250px;
+    overflow: hidden;
+    @apply
+    p-3 rounded-t-lg py-10
 }
 .card img{
     width: auto;
     max-width: 185px;
     max-height: 190px;
+}
+.line{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }

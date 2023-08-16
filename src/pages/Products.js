@@ -273,6 +273,35 @@ const ProductsPage = () => {
               )}
             </div>
             <h1 className='text-xl font-bold text-primary mb-6'>
+              Popüler Ürünler
+            </h1>
+            {load ? (
+              <InfiniteScroll
+                dataLength={3}
+                // next={() => setPage(page + 1)}
+                hasMore={false}
+                loader={<Skeleton />}
+              >
+                <div className='flex flex-wrap mb-10'>
+                  {products.slice(0, 3).map((item) => (
+                    <div
+                      className=' xl:w-1/3 lg:w-1/2 md:full sm:w-full p-1'
+                      span={18}
+                    >
+                      <Card
+                        img={item.instoreAppStandartImage.defaultUrl}
+                        title={item.name}
+                        item={item}
+                        populer
+                      />
+                    </div>
+                  ))}
+                </div>
+              </InfiniteScroll>
+            ) : (
+              <Skeleton />
+            )}
+            <h1 className='text-xl font-bold text-primary mb-6'>
               {selectedCategory?.name}
             </h1>
             {load ? (

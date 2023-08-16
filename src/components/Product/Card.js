@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import cn from 'classnames'
 import styles from './styles.module.css'
 
-const Card = ({ item, img }) => {
+const Card = ({ item, img, populer }) => {
   const [title, setTitle] = useState('')
   useEffect(() => {
     let displayTitle = item.productTitles.map((i) =>
@@ -13,15 +13,15 @@ const Card = ({ item, img }) => {
     setTitle(displayTitle)
   }, [])
   return (
-    <div className='bg-white w-full rounded-xl mb-3'>
-      <div className={styles.card}>
+    <div className={'bg-white w-full rounded-xl mb-3 cursor-pointer'}>
+      <div className={cn(styles.card, populer ? 'bg-primary' : 'bg-white')}>
         <LazyLoadImage
           effect='blur'
           src={img} // use normal <img> attributes as props
         />
       </div>
       <div className='p-6 '>
-        <div className='h-14 mb-3'>
+        <div className={cn(' mb-3', styles.line)}>
           <strong>{item.code} </strong>
           {title}
         </div>
