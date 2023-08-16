@@ -13,6 +13,7 @@ import Layout from './layout'
 import LoginPage from './pages/Login'
 import HomePage from './pages/Home'
 import ProductsPage from './pages/Products'
+import CouponManagement from './pages/CouponManagement'
 
 const ProtectedRoute = ({ children }) => {
   const jwtToken = localStorage.getItem('jwtToken')
@@ -28,7 +29,6 @@ const App = () => {
   const [jwtToken] = useState(localStorage.getItem('jwtToken'))
 
   useEffect(() => {
-    
     if (jwtToken) {
       setAuthorizationToken(jwtToken)
     }
@@ -52,6 +52,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <ProductsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/coupon-management'
+            element={
+              <ProtectedRoute>
+                <CouponManagement />
               </ProtectedRoute>
             }
           />

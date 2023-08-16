@@ -57,10 +57,10 @@ const HomePage = ({ children }) => {
           active={isLinkActive('/products')}
         />
         <MenuItem
-          to='/'
+          to='/coupon-management'
           icon={<TicketDiscount />}
           title='Kuponlar'
-          active={isLinkActive('/a')}
+          active={isLinkActive('/coupon-management')}
         />
         <MenuItem
           to='/test'
