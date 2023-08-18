@@ -60,6 +60,7 @@ const CouponManagement = (props) => {
     setIsLoaded(true)
     if (code.length === 0) {
       message.info('Kupon kodu alanını boş bıraktınız.')
+      setIsLoaded(false)
       return false
     } else {
       instance.post(`/coupon_validation?CouponCode=${code}`).then((res) => {
@@ -78,10 +79,7 @@ const CouponManagement = (props) => {
           setIsOpen(true)
           setIsLoaded(false)
         } else {
-          ToastUtility.warning(
-            'Tanımlı olmayan bir kupon kodu girdiniz.',
-            'errkupon'
-          )
+          message.info('Tanımlı olmayan bir kupon kodu girdiniz.')
         }
       })
     }
@@ -170,6 +168,7 @@ const CouponManagement = (props) => {
               <DatePicker
                 className='w-full mt-3'
                 showTime
+                placeholder='Başlangıç Tarihi'
                 // value={dayjs(filter.startDate) || new Date()}
                 onChange={(e, b) => setFilter({ ...filter, startDate: b })}
               />
@@ -177,6 +176,7 @@ const CouponManagement = (props) => {
                 className='w-full mt-3'
                 showTime
                 // value={dayjs(filter.endDate) || new Date()}
+                placeholder='Bitiş Tarihi'
                 onChange={(e, b) => setFilter({ ...filter, endDate: b })}
               />
               <div className='flex items-center justify-end gap-3 mt-3'>
