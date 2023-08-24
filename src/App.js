@@ -14,6 +14,7 @@ import LoginPage from './pages/Login'
 import HomePage from './pages/Home'
 import ProductsPage from './pages/Products'
 import CouponManagement from './pages/CouponManagement'
+import OnlineStore from './pages/onlineStore'
 
 const ProtectedRoute = ({ children }) => {
   const jwtToken = localStorage.getItem('jwtToken')
@@ -60,6 +61,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <CouponManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/online-store'
+            element={
+              <ProtectedRoute>
+                <OnlineStore />
               </ProtectedRoute>
             }
           />

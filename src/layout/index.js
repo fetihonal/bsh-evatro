@@ -63,10 +63,10 @@ const HomePage = ({ children }) => {
           active={isLinkActive('/coupon-management')}
         />
         <MenuItem
-          to='/test'
+          to='/online-store'
           icon={<Shop />}
           title='Pazar Yönetimi'
-          active={isLinkActive('/tesst')}
+          active={isLinkActive('/online-store')}
         />
         <MenuItem
           to='/'
