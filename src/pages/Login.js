@@ -1,27 +1,27 @@
-import React, { useState, useCallback,useEffect,useContext } from 'react'
+import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Input, Button, notification } from 'antd'
 import { ThemeContext } from '../context/themeContext'
 import { setAuthorizationToken } from '../helpers/setAuthorizationToken'
 import instance from '../utils/axios'
 import Logo from '../assets/logo.png'
-import { Sms, Lock,InfoCircle,Key } from 'iconsax-react'
+import { Sms, Lock, InfoCircle, Key } from 'iconsax-react'
 import NewPasswordPopup from '../components/Login/NewPasswordPopup'
 import { bosh, profilo, siemens } from '../layout/tailwindTheme'
 
 const LoginPage = () => {
-  const {setTheme} = useContext(ThemeContext)
+  const { setTheme } = useContext(ThemeContext)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     deviceId: '',
   })
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   const [api, contextHolder] = notification.useNotification()
-  useEffect(()=> {
-    localStorage.removeItem('theme');
-     setTheme(bosh)
-  },[])
+  useEffect(() => {
+    localStorage.removeItem('theme')
+    setTheme(bosh)
+  }, [])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -31,52 +31,46 @@ const LoginPage = () => {
   const handleOnClick = useCallback(() => navigate('/'), [navigate])
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     instance
       .post('/login', formData)
       .then((res) => {
-        const jwToken = res.data.jwToken;
-         const storedTheme = res.data.companyPartnerId
-         console.log(storedTheme)
-         if (
-           storedTheme === 1 ||
-           storedTheme === 2 ||
-           storedTheme === 3
-         ) {
-           const theme =
-             storedTheme === 1 ? bosh : storedTheme === 2 ? siemens : profilo
-            setTheme(theme)
-         }
-       
+        const jwToken = res.data.jwToken
+        const storedTheme = res.data.companyPartnerId
+
+        if (storedTheme === 1 || storedTheme === 2 || storedTheme === 3) {
+          const theme =
+            storedTheme === 1 ? bosh : storedTheme === 2 ? siemens : profilo
+          setTheme(theme)
+        }
+
         localStorage.setItem('theme', res.data.companyPartnerId)
+        localStorage.setItem('clientUser', res.data.clientUser)
         setAuthorizationToken(jwToken)
         handleOnClick()
-        
       })
       .catch((error) => {
-         api.open({
-        message: 'Giriş Bilgi',
-        description: 'Kullanıcı adı veya şifre hatalı.',
-        placement: 'topRight',
-        icon: <InfoCircle style={{ color: '#108ee9' }} />,
-      })
+        api.open({
+          message: 'Giriş Bilgi',
+          description: 'Kullanıcı adı veya şifre hatalı.',
+          placement: 'topRight',
+          icon: <InfoCircle style={{ color: '#108ee9' }} />,
+        })
       })
   }
   const showModal = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleOk = () => {
-    
     setTimeout(() => {
-      
-      setOpen(false);
-    }, 3000);
-  };
+      setOpen(false)
+    }, 3000)
+  }
 
   const handleCancel = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <div className='flex h-screen'>
@@ -120,7 +114,7 @@ const LoginPage = () => {
                 className='text-primary cursor-pointer'
                 onClick={() => showModal()}
               >
-               Şifremi Unuttum ?
+                Şifremi Unuttum ?
               </span>
             </div>
             <Button
