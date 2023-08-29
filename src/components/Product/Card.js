@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import cn from 'classnames'
 import styles from './styles.module.css'
+import { getFormattedPrice } from '../../helpers/FormatUtility'
 
 const Card = ({ item, img, populer }) => {
   const [title, setTitle] = useState('')
@@ -26,7 +27,7 @@ const Card = ({ item, img, populer }) => {
           {title}
         </div>
         <span className='text-primary font-bold'>
-          {item.productPrice?.value}
+          {getFormattedPrice(item.productPrice?.value)}
         </span>
       </div>
     </div>

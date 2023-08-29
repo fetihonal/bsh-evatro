@@ -21,6 +21,7 @@ const ProductsPage = () => {
   const [showFilter, setShowFilter] = useState(false)
   const [load, setLoad] = useState(false)
   const [page, setPage] = useState(0)
+  const [noData, setNoData] = useState(false)
   useEffect(() => {
     instance.post('/top_categories').then((res) => {
       setCategories(res.data)
@@ -39,9 +40,15 @@ const ProductsPage = () => {
           }
         )
         .then((res) => {
-          setProducts([])
-          setProductCodes(res.data.map((item) => item.code))
-          setPage(1)
+          if (res.data.length === 0) {
+            setNoData(true)
+            console.log('asd')
+          } else {
+            setProducts([])
+            setNoData(false)
+            setProductCodes(res.data.map((item) => item.code))
+            setPage(1)
+          }
         })
       instance
         .post('/filter_with_category?CategoryId=' + selectedCategory.id)
@@ -275,14 +282,19 @@ const ProductsPage = () => {
             <h1 className='text-xl font-bold text-primary mb-6'>
               Popüler Ürünler
             </h1>
-            {load ? (
+            {noData && !load ? (
+              <Empty
+                className='mx-auto w-full'
+                description={'Bu ürün kategorisine ait ürün buluanamdı'}
+              />
+            ) : (
               <InfiniteScroll
                 dataLength={3}
                 // next={() => setPage(page + 1)}
                 hasMore={false}
                 loader={<Skeleton />}
               >
-                <div className='flex flex-wrap mb-10'>
+                <div className='flex flex-wrap'>
                   {products.slice(0, 3).map((item) => (
                     <div
                       className=' xl:w-1/3 lg:w-1/2 md:full sm:w-full p-1'
@@ -298,13 +310,16 @@ const ProductsPage = () => {
                   ))}
                 </div>
               </InfiniteScroll>
-            ) : (
-              <Skeleton />
             )}
             <h1 className='text-xl font-bold text-primary mb-6'>
               {selectedCategory?.name}
             </h1>
-            {load ? (
+            {noData && !load ? (
+              <Empty
+                className='mx-auto w-full'
+                description={'Bu ürün kategorisine ait ürün buluanamdı'}
+              />
+            ) : (
               <InfiniteScroll
                 dataLength={products.length}
                 next={() => setPage(page + 1)}
@@ -326,8 +341,6 @@ const ProductsPage = () => {
                   ))}
                 </div>
               </InfiniteScroll>
-            ) : (
-              <Skeleton />
             )}
           </div>
         </Col>

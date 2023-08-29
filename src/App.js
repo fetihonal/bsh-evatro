@@ -15,6 +15,7 @@ import HomePage from './pages/Home'
 import ProductsPage from './pages/Products'
 import CouponManagement from './pages/CouponManagement'
 import OnlineStore from './pages/onlineStore'
+import WarrantyCertifcate from './pages/warrantyCertificate'
 
 const ProtectedRoute = ({ children }) => {
   const jwtToken = localStorage.getItem('jwtToken')
@@ -69,6 +70,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <OnlineStore />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/warranty-certificate'
+            element={
+              <ProtectedRoute>
+                <WarrantyCertifcate />
               </ProtectedRoute>
             }
           />
