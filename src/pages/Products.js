@@ -285,7 +285,7 @@ const ProductsPage = () => {
             {noData && !load ? (
               <Empty
                 className='mx-auto w-full'
-                description={'Bu ürün kategorisine ait ürün buluanamdı'}
+                description={'Aradığınız kriterlere uygun ürün bulunamadı.'}
               />
             ) : (
               <InfiniteScroll
@@ -317,7 +317,7 @@ const ProductsPage = () => {
             {noData && !load ? (
               <Empty
                 className='mx-auto w-full'
-                description={'Bu ürün kategorisine ait ürün buluanamdı'}
+                description={'Aradığınız kriterlere uygun ürün bulunamadı.'}
               />
             ) : (
               <InfiniteScroll

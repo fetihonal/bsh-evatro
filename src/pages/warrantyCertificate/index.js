@@ -6,7 +6,7 @@ import {
   Modal,
   Select,
   Button,
-  Checkbox,
+  Radio,
   Empty,
   Input,
   Form,
@@ -37,6 +37,7 @@ const WarrantyCertifcate = (props) => {
   const [productsCategories, setProductCategories] = useState([])
   const [products, setProducts] = useState([])
   const [productCodeValue, setProductCodeValue] = useState('')
+  const [selectedProducts, setSelectedProducts] = useState([])
   useEffect(() => {
     retrieveCategoryData()
   }, [])
@@ -165,7 +166,7 @@ const WarrantyCertifcate = (props) => {
               //   setNoProductFound(true)
               setProgressForSearchBox(false)
 
-              message.warning('Kayıt bulunamadı', 'isSearchedProduct')
+              message.warning('Kayıt bulunamadı')
             } else {
               setProducts(response.data)
               //   setNoProductFound(false)
@@ -190,16 +191,13 @@ const WarrantyCertifcate = (props) => {
                 // setSubCategoryDropdownTitle(previousCategory.name)
               }
 
-              message.success('Kayıt başarıyla alındı', 'isSearchedProduct')
+              message.success('Kayıt başarıyla alındı')
             }
           },
           (error) => {
             if (error.response) {
               console.log(error.response)
-              message.error(
-                'İşleminiz gerçekleştirilirken hata oluştu.',
-                'isSearchedProduct'
-              )
+              message.error('İşleminiz gerçekleştirilirken hata oluştu.')
             }
           }
         )
@@ -215,7 +213,35 @@ const WarrantyCertifcate = (props) => {
   const handleCodeChange = (e) => {
     setProductCodeValue(e.target.value)
   }
-  console.log(products)
+  const findArrayElementByCode = (array, code) => {
+    return array.find((element) => {
+      return element.product
+        ? element.product.code.toString() === code
+        : element.code.toString() === code
+    })
+  }
+  const onClickRadio = (e) => {
+    let productCode = e.target.value
+
+    if (isChecked(productCode)) {
+      removeCode(productCode)
+    } else {
+      const selectedProduct = findArrayElementByCode(products, productCode)
+      setSelectedProducts((prevSelectedProducts) =>
+        prevSelectedProducts.concat(selectedProduct)
+      )
+    }
+  }
+
+  const isChecked = (code) => {
+    const selectedProduct = findArrayElementByCode(selectedProducts, code)
+    return selectedProduct !== undefined
+  }
+
+  const removeCode = (code) => {
+    let filteredArray = selectedProducts.filter((item) => item.code !== code)
+    setSelectedProducts(filteredArray)
+  }
   return (
     <>
       <PageTitle
@@ -289,64 +315,73 @@ const WarrantyCertifcate = (props) => {
                   />
                 </Form.Item>
               </Form>
-              <div className='flex items-center justify-end gap-3 mt-3'>
-                <Button size='lg' onClick={() => {}}>
-                  Filtreyi Temizle
-                </Button>
-                <Button type='primary' size='lg' onClick={() => {}}>
-                  Filtrele
-                </Button>
-              </div>
             </div>
           </div>
         </Col>
         <Col className='gutter-row' span={18}>
-          <div className=' bg-white rounded-lg p-8'>
+          <div className=' bg-white rounded-lg p-8 mb-10'>
             <h2 className='text-xl text-[#030229] font-bold mb-6'>
               Kupon Listeleme
             </h2>
-            {isDataLoaded ? (
-              products.length > 0 ? (
-                <table class='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
-                  <thead class='text-xs text-gray-700 uppercase border-b border-gray-200 dark:bg-gray-700 dark:text-gray-400'>
-                    <tr>
-                      <th scope='col' class='px-6 py-3'>
-                        Kupon Codu
-                      </th>
-                      <th scope='col' class='px-6 py-3'>
-                        Ürün Grubu
-                      </th>
-                      <th scope='col' class='px-6 py-3'>
-                        Ürün Alt Gurub
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {products.map((i) => (
-                      <tr class='bg-white  hover:bg-gray-300 transition-all rounded-lg dark:border-gray-700 cursor-pointer'>
-                        <th
-                          scope='row'
-                          class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-                        >
-                          {i.code}
-                        </th>
-                        <td class='px-6 py-4'>{i.name}</td>
 
-                        <td class='px-6 py-4'>{i.name}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              ) : (
-                <div className='flex items-center justify-center p-3 mt-4 w-full'>
-                  <Empty description='Kayıtlı Kupon Bulunamadı' />
-                </div>
-              )
-            ) : (
-              <div className='flex items-center justify-center p-2 mt-4'>
-                <Skeleton />
-              </div>
-            )}
+            <div className='h-80 overflow-scroll'>
+              <table class='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+                <thead class='text-xs text-gray-700 uppercase border-b border-gray-200 dark:bg-gray-700 dark:text-gray-400'>
+                  <tr>
+                    <th scope='col' class='px-6 py-3'>
+                      Ürün Codu
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      Ürün Grubu
+                    </th>
+                    <th scope='col' class='px-6 py-3'>
+                      Ürün Alt Gurub
+                    </th>
+                  </tr>
+                </thead>
+                {isDataLoaded ? (
+                  products.length > 0 ? (
+                    <tbody>
+                      {products.map((i) => (
+                        <tr class='bg-white  hover:bg-gray-300 transition-all rounded-lg dark:border-gray-700 cursor-pointer'>
+                          <th
+                            scope='row'
+                            class='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                          >
+                            <Radio
+                              onChange={(e) => {}}
+                              onClick={(e) => {
+                                onClickRadio(e)
+                              }}
+                              className='radioSize'
+                              type='radio'
+                              checked={isChecked(i.code)}
+                              value={i.code}
+                              name={i.code}
+                            />
+                            {i.code}
+                          </th>
+                          <td class='px-6 py-4'>{i.name}</td>
+
+                          <td class='px-6 py-4'>{i.name}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
+                    <div className='flex items-center justify-center p-3 mt-4 w-full'>
+                      <Empty description='Kayıtlı Kupon Bulunamadı' />
+                    </div>
+                  )
+                ) : (
+                  <div className='flex items-center justify-center p-2 mt-4'>
+                    <Skeleton />
+                  </div>
+                )}
+              </table>
+            </div>
+          </div>
+          <div className=' bg-white rounded-lg p-8'>
+            <h2 className='text-xl text-[#030229] font-bold mb-6'>Belgeler</h2>
           </div>
         </Col>
       </Row>
